@@ -1,4 +1,5 @@
+from login import Login
 
 # Program main function
 if __name__ == "__main__":
-    print("teste")
+    credentials = Login()
