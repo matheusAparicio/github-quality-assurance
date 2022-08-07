@@ -1,7 +1,9 @@
 from login import Login
-from validator import Validator
+from validator import GithubValidator
 
 # Program main function
 if __name__ == "__main__":
     credentials = Login()
-    validator = Validator(credentials.userEmail, credentials.userPassword)
+    validator = GithubValidator(credentials.userEmail, credentials.userPassword)
+    validator.validateLogin()
+    validator.finalizeValidator()
