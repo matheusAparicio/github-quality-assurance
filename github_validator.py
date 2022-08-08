@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from time import sleep
 
 
 class GithubValidator:
@@ -61,6 +60,19 @@ class GithubValidator:
         if zeroMatchesFound < len(counterTexts) / 2:
             return True
         return False
+
+    def validateRepositoryCreation(self):
+        self.driver.get("https://github.com/")
+
+        WebDriverWait(self.driver, timeout=10).until(
+            EC.visibility_of_element_located((By.LINK_TEXT, "Create repository"))
+        )
+
+        newRepositoryButton = self.driver.find_element(By.LINK_TEXT, "Create repository")
+        newRepositoryButton.click()
+
+    def validateOther(self):
+        pass
 
     def waitPageLoadScript(self, timeout=10, script="return document.readyState === 'complete'"):
         try:
