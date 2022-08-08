@@ -6,4 +6,5 @@ if __name__ == "__main__":
     credentials = Login()
     validator = GithubValidator(credentials.userEmail, credentials.userPassword)
     validator.validateLogin()
+    validator.validateSearch()
     validator.finalizeValidator()
