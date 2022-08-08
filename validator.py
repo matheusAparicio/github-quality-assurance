@@ -11,6 +11,7 @@ class GithubValidator:
         self.login = login
         self.password = password
         self.driver = webdriver.Firefox()
+        self.commonWords = ["project", 'a', "car", "light", "color", "api", "ufsc", "letter", "matheus"]
 
     def validateLogin(self):
         self.driver.get("https://github.com/login")
@@ -28,19 +29,33 @@ class GithubValidator:
             print("[+] Login successful!")
 
     def validateSearch(self):
+        testsPassed = 0
         self.driver.get("https://github.com/")
+        for word in self.commonWords:
+            if self.validateSingleSearch(word):
+                testsPassed += 1
+        if testsPassed < len(self.commonWords):
+            print("[!] Search failed!")
+        else:
+            print("[+] Search successful!")
+
+
+    def validateSingleSearch(self, searchTerm='a'):
         searchBar = self.driver.find_element(By.NAME, 'q')
-        searchBar.send_keys("a")
+        searchBar.clear()
+        searchBar.send_keys(searchTerm)
         searchBar.submit()
 
         sleep(3)
 
-        searchCountersTexts = []
+        zeroMatchesFound = 0
         for i in self.driver.find_elements(By.CLASS_NAME, "js-codesearch-count"):
-            if i.text != '':
-                searchCountersTexts.append(i.text)
+            if i.text != '' and i.text == '0':
+                zeroMatchesFound += 1
 
-        print(searchCountersTexts)
+        if zeroMatchesFound < 5:
+            return True
+        return False
 
     def waitPageLoadScript(self, timeout=10, script="return document.readyState === 'complete'"):
         WebDriverWait(driver=self.driver, timeout=timeout).until(
