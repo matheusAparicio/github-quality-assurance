@@ -30,7 +30,6 @@ class GithubValidator:
 
     def validateSearch(self):
         testsPassed = 0
-        self.driver.get("https://github.com/")
         for word in self.commonWords:
             if self.validateSingleSearch(word):
                 testsPassed += 1
@@ -39,33 +38,37 @@ class GithubValidator:
         else:
             print("[+] Search successful!")
 
-
     def validateSingleSearch(self, searchTerm='a'):
+        self.driver.get("https://github.com/")
         searchBar = self.driver.find_element(By.NAME, 'q')
         searchBar.clear()
         searchBar.send_keys(searchTerm)
         searchBar.submit()
 
-        sleep(3)
+        WebDriverWait(self.driver, timeout=10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "span.js-codesearch-count")),
+            EC.visibility_of_element_located((By.CSS_SELECTOR, "span.js-codesearch-count"))
+        )
 
+        counterTexts = []
         zeroMatchesFound = 0
-        for i in self.driver.find_elements(By.CLASS_NAME, "js-codesearch-count"):
-            if i.text != '' and i.text == '0':
-                zeroMatchesFound += 1
+        for i in self.driver.find_elements(By.CSS_SELECTOR, "span.js-codesearch-count"):
+            if i.text != '':
+                counterTexts.append(i.text)
+                if i.text == '0':
+                    zeroMatchesFound += 1
 
-        if zeroMatchesFound < 5:
+        if zeroMatchesFound < len(counterTexts) / 2:
             return True
         return False
 
     def waitPageLoadScript(self, timeout=10, script="return document.readyState === 'complete'"):
-        WebDriverWait(driver=self.driver, timeout=timeout).until(
-            lambda x: x.execute_script(script)
-        )
-
-    def waitPageLoadElementLocated(self, element: str, by=By.ID, timeout=10):
-        WebDriverWait(driver=self.driver, timeout=timeout).until(
-            EC.presence_of_element_located((by, element))
-        )
+        try:
+            WebDriverWait(driver=self.driver, timeout=timeout).until(
+                lambda x: x.execute_script(script)
+            )
+        except ConnectionError:
+            print("Falha ao executar script.")
 
     def finalizeValidator(self):
         self.driver.quit()
