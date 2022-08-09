@@ -7,6 +7,6 @@ validator = GithubValidator(credentials.userName, credentials.userPassword)
 # Program main function
 if __name__ == "__main__":
     validator.validateLogin()
-    validator.validateRepositoryCreation()
-    #validator.validateSearch()
+    validator.validateSearch()
+    # validator.validateRepositoryCreation()
     #validator.finalizeValidator()
