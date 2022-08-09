@@ -13,7 +13,7 @@ class RepositoryCreationValidator(GithubValidator):
 
     def validateRepositoryCreation(self):
         self.driver.get("https://github.com/")
-        # Wait until find a new repository button.
+        # Waits until find a new repository button.
         try:
             WebDriverWait(self.driver, timeout=10).until(
                 EC.visibility_of_any_elements_located((By.XPATH, "/html/body/div[5]/div/aside/div/div[2]/div/h2/a | "
@@ -33,11 +33,12 @@ class RepositoryCreationValidator(GithubValidator):
         WebDriverWait(self.driver, timeout=10).until(
             EC.visibility_of_element_located((By.ID, "repository_name"))
         )
-        # Configure new repository.
+        # Configures the new repository.
         self.driver.find_element(By.ID, "repository_name").send_keys(f"{utilities.randomString(6)}-"
                                                                      f"{utilities.randomString(6)}")
         self.driver.find_element(By.ID, "repository_visibility_private").click()
-        # Wait until the confirm button is enabled.
+
+        # Waits until the confirm button is enabled.
         try:
             WebDriverWait(self.driver, timeout=10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn-primary"))
@@ -46,9 +47,9 @@ class RepositoryCreationValidator(GithubValidator):
         except:
             print("[!] Failure! Project name wasn't accepted.")
 
+    # Search for the code button of the new project.
+    # In the case that it isn't found, an error is returned.
     def __validateNewProject(self):
-        # Search for the code button of the new project.
-        # In the case that it isn't found, an error is returned.
         try:
             WebDriverWait(self.driver, timeout=5).until(
                 EC.visibility_of_element_located((By.ID, "code-tab"))

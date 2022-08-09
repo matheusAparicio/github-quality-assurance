@@ -39,9 +39,9 @@ class SearchValidator(GithubValidator):
             return True
         return False
 
-    # Check if more than 0 results exists in at least half of the search categories verified.
+    # Checks if more than 0 results exists in at least half of the search categories verified.
     def __validateSingleSearchMatchNumber(self, searchTerm: str):
-        # Check if at last 2 search match counter are visible.
+        # Checks if at last 2 search match counter are visible.
         WebDriverWait(self.driver, timeout=10).until(
             EC.visibility_of_element_located((By.CSS_SELECTOR, "span.js-codesearch-count")),
             EC.visibility_of_element_located((By.CSS_SELECTOR, "span.js-codesearch-count"))
@@ -64,7 +64,7 @@ class SearchValidator(GithubValidator):
     # Get the search results and pass through repositories names and descriptions.
     # If the searchTerm is encountered in at least half of these, the search term is validated.
     def __validateSingleSearchMatches(self, searchTerm: str):
-        # Check if at last 2 possible search match are visible.
+        # Checks if at last 2 possible search match are visible.
         WebDriverWait(self.driver, timeout=10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "v-align-middle")),
             EC.visibility_of_element_located((By.CLASS_NAME, "mb-1"))

@@ -25,13 +25,13 @@ class RepositoryDeletionValidator(GithubValidator):
         )
         self.repositoryName = self.driver.find_element(By.ID, "rename-field").get_attribute("value")
 
-        # Click in the delete repository button, then send the confirmation input to delete.
+        # Clicks in the delete repository button, then send the confirmation input to delete.
         self.driver.find_element(By.CSS_SELECTOR, "details.flex-md-order-1 > summary:nth-child(1)").click()
         self.driver.find_element(By.CSS_SELECTOR, "details.flex-md-order-1 > details-dialog:nth-child(2) > "
                                                   "div:nth-child(3) > form:nth-child(4) > p:nth-child(3) > "
                                                   "input:nth-child(1)").send_keys(f"{self.userName}/{self.repositoryName}")
 
-        # Wait until the confirm delete button became clickable.
+        # Waits until the confirm delete button became clickable.
         try:
             WebDriverWait(self.driver, timeout=10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn-danger:nth-child(4)"))
@@ -41,7 +41,7 @@ class RepositoryDeletionValidator(GithubValidator):
         except:
             print("[!] Repository deletion failure! The confirmation input wasn't properly typed.")
 
-    # Check the page url after deletion. Then try to open the deleted repository page.
+    # Checks the page url after deletion. Then try to open the deleted repository page.
     def __confirmDeletion(self):
         try:
             WebDriverWait(self.driver, timeout=5).until(
