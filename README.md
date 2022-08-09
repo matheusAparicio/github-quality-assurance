@@ -30,6 +30,9 @@ Para verificar se a deleção ocorreu com sucesso, é verificado se a página at
 O projeto também possuí persistência de dados. Caso deseje, o usuário pode salvar suas credenciais de login localmente para poupar tempo durante os testes.
 
 # Como executar o código?
+Basta executar o `main.py` e digitar as credenciais para login no GitHub.
+
+## Requerimentos
 
 - Instalar o package Selenium para Python. (Pode ser feito pelo comando `pip install selenium`)
 
@@ -60,3 +63,7 @@ Pin-Priority: 1001
 ' | sudo tee /etc/apt/preferences.d/mozilla-firefox
 ```
 `sudo apt install firefox`
+
+Caso o erro persista, talvez seja necessário executar o seguinte código:
+
+`sudo apt upgrade`
