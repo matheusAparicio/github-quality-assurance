@@ -8,6 +8,7 @@ class Login:
         self.userPassword = ""
         self.verifyLoginFile()
 
+    # Checks existence of saved credentials. If it doesn't exist, new credentials are received.
     def verifyLoginFile(self):
         if os.path.exists("credentials.txt"):
             print("Já existem credenciais de login. Usá-las para os teste?")
@@ -29,6 +30,7 @@ class Login:
         else:
             self.getLoginInfo()
 
+    # Receives credentials by user input and ask if it will be persisted.
     def getLoginInfo(self):
         self.userName = input("Digite seu email para login no Github: ")
         self.userPassword = input("Digite sua senha: ")
