@@ -1,12 +1,20 @@
 from login import Login
-from github_validator import GithubValidator
+from validators.github_validator import GithubValidator
+from validators.login_validator import LoginValidator
+from validators.search_validator import SearchValidator
+from validators.repository_creation_validator import RepositoryCreationValidator
+from selenium import webdriver
 
 credentials = Login()
-validator = GithubValidator(credentials.userName, credentials.userPassword)
+webDriver = webdriver.Firefox()
+gitValidator = GithubValidator(webDriver)
+loginValidator = LoginValidator(webDriver, credentials.userName, credentials.userPassword)
+searchValidator = SearchValidator(webDriver)
+repositoryCreationValidator = RepositoryCreationValidator(webDriver)
 
 # Program main function
 if __name__ == "__main__":
-    validator.validateLogin()
-    validator.validateSearch()
+    loginValidator.validateLogin()
+    searchValidator.validateSearch()
     # validator.validateRepositoryCreation()
     #validator.finalizeValidator()
