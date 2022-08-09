@@ -33,7 +33,7 @@ class RepositoryDeletionValidator(GithubValidator):
 
         # Wait until the confirm delete button became clickable.
         try:
-            WebDriverWait(self.driver, timeout=5).until(
+            WebDriverWait(self.driver, timeout=10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.btn-danger:nth-child(4)"))
             )
             self.driver.find_element(By.CSS_SELECTOR, "button.btn-danger:nth-child(4)").click()
