@@ -27,11 +27,12 @@ class LoginValidator(GithubValidator):
 
         errorMessage = "Incorrect username or password"
         errors = self.driver.find_elements(By.CLASS_NAME, "flash-error")
+
         if any(errorMessage in e.text for e in errors):
             print(f"[!] Login failed! {errorMessage}")
-            #self.finalizeValidator()
+            self.finalizeValidator()
         else:
             if self.driver.current_url != "https://github.com/sessions/verified-device":
                 print("[+] Login successful!")
             else:
-                print("[!] Login parcially successful. Email authentication required.")
+                print("[!] Login partially successful. Email authentication required.")

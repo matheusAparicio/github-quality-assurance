@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from utilities import utilities
 
 
 class RepositoryCreationValidator(GithubValidator):
@@ -12,33 +13,46 @@ class RepositoryCreationValidator(GithubValidator):
 
     def validateRepositoryCreation(self):
         self.driver.get("https://github.com/")
+        # Wait until find a new repository button.
         try:
             WebDriverWait(self.driver, timeout=10).until(
-                EC.visibility_of_any_elements_located((By.XPATH, "/html/body/div[5]/div/aside/div/div[2]/div/h2/a | /html/body/div[5]/div/aside/div/div[1]/div/div/a[1]"))
+                EC.visibility_of_any_elements_located((By.XPATH, "/html/body/div[5]/div/aside/div/div[2]/div/h2/a | "
+                                                                 "/html/body/div[5]/div/aside/div/div[1]/div/div/a[1]"))
             )
-            newRepositoryButton = self.driver.find_element(By.XPATH, "/html/body/div[5]/div/aside/div/div[2]/div/h2/a | /html/body/div[5]/div/aside/div/div[1]/div/div/a[1]")
+            newRepositoryButton = self.driver.find_element(By.XPATH, "/html/body/div[5]/div/aside/div/div[2]/div/h2/a | "
+                                                                     "/html/body/div[5]/div/aside/div/div[1]/div/div/a[1]")
             newRepositoryButton.click()
-            WebDriverWait(self.driver, timeout=10).until(
-                EC.visibility_of_element_located((By.ID, "repository_name"))
-            )
-            self.driver.find_element(By.ID, "repository_name").send_keys(f"{utilities.randomString(6)}-{utilities.randomString(6)}")
-            self.driver.find_element(By.ID, "repository_visibility_private").click()
-            try:
-                WebDriverWait(self.driver, timeout=10).until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn-primary"))
-                )
-                self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
-            except:
-                print("[!] Failure! Project name wasn't accepted.")
-
-            try:
-                WebDriverWait(self.driver, timeout=5).until(
-                    EC.visibility_of_element_located((By.ID, "code-tab"))
-                )
-                print("[+] Repository created successfully!")
-            except:
-                print("[!] Repository creation failure.")
+            self.__configureRepository()
+            self.__validateNewProject()
 
         except:
             print("[!] Repository creation error! No create repository button was found.")
             return
+
+    def __configureRepository(self):
+        WebDriverWait(self.driver, timeout=10).until(
+            EC.visibility_of_element_located((By.ID, "repository_name"))
+        )
+        # Configure new repository.
+        self.driver.find_element(By.ID, "repository_name").send_keys(f"{utilities.randomString(6)}-"
+                                                                     f"{utilities.randomString(6)}")
+        self.driver.find_element(By.ID, "repository_visibility_private").click()
+        # Wait until the confirm button is enabled.
+        try:
+            WebDriverWait(self.driver, timeout=10).until(
+                EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn-primary"))
+            )
+            self.driver.find_element(By.CSS_SELECTOR, ".btn-primary").click()
+        except:
+            print("[!] Failure! Project name wasn't accepted.")
+
+    def __validateNewProject(self):
+        # Search for the code button of the new project.
+        # In the case that it isn't found, an error is returned.
+        try:
+            WebDriverWait(self.driver, timeout=5).until(
+                EC.visibility_of_element_located((By.ID, "code-tab"))
+            )
+            print("[+] Repository created successfully!")
+        except:
+            print("[!] Repository creation failure.")

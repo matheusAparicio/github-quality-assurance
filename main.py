@@ -16,5 +16,5 @@ repositoryCreationValidator = RepositoryCreationValidator(webDriver)
 if __name__ == "__main__":
     loginValidator.validateLogin()
     searchValidator.validateSearch()
-    # validator.validateRepositoryCreation()
+    # repositoryCreationValidator.validateRepositoryCreation()
     #validator.finalizeValidator()
