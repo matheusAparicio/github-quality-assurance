@@ -53,6 +53,6 @@ class RepositoryCreationValidator(GithubValidator):
             WebDriverWait(self.driver, timeout=5).until(
                 EC.visibility_of_element_located((By.ID, "code-tab"))
             )
-            print("[+] Repository created successfully!")
+            print("[+] Repository creation working successfully!")
         except:
             print("[!] Repository creation failure.")
