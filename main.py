@@ -8,7 +8,7 @@ from selenium import webdriver
 
 credentials = Login()
 webDriver = webdriver.Firefox()
-gitValidator = GithubValidator(webDriver)
+githubValidator = GithubValidator(webDriver)
 loginValidator = LoginValidator(webDriver, credentials.userName, credentials.userPassword)
 searchValidator = SearchValidator(webDriver)
 repositoryCreationValidator = RepositoryCreationValidator(webDriver)
@@ -20,4 +20,4 @@ if __name__ == "__main__":
     searchValidator.validateSearch()
     repositoryCreationValidator.validateRepositoryCreation()
     repositoryDeletionValidator.validateRepositoryDeletion()
-    #validator.finalizeValidator()
+    githubValidator.finalizeValidator()
