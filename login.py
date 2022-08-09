@@ -32,7 +32,7 @@ class Login:
 
     # Receives credentials by user input and ask if it will be persisted.
     def getLoginInfo(self):
-        self.userName = input("Digite seu email para login no Github: ")
+        self.userName = input("Digite seu nome de usuário para login no Github: ")
         self.userPassword = input("Digite sua senha: ")
         persistChoice = input("Gostaria de salvar suas credenciais?"
                               "(s/n): ")
