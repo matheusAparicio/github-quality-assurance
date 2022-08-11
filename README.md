@@ -14,7 +14,9 @@ Para validar o login, o teste feito é procurar uma mensagem de erro na paǵina.
 ## Pesquisa
 Para validar a pesquisa, foi usada uma lista com várias palavras comuns. A partir delas foram feitas duas etapas de verificação: a primeira consiste em verificar se em cada teste de pesquisa, ao menos metade das categorias de resultados tiveram mais que 0 resultados. Por exemplo, se foram consideradas as categorias commits, users, discussions e issues e apenas discussions teve 0 ocorrências, essa etapa é validada.
 
-A segunda etapa consiste em procurar o termo de pesquisa em todos os títulos e descrições de resultados. Por exemplo, se tiveram 6 resultados carregados, terão 6 títulos e 6 descrições, no total 12. Caso o termo de pesquisa esteja contido em pelo menos metade desses elementos, ou seja, 6, essa etapa é validada.
+A segunda etapa consiste em procurar o termo de pesquisa em todos os títulos e descrições de resultados. Por exemplo, se tiveram 6 resultados carregados, terão 6 títulos e 6 descrições, no total 12. Caso o termo de pesquisa esteja contido em pelo menos metade desses elementos, ou seja, 6, essa etapa é validada. 
+
+A lógica por trás dessa etapa é a de que, para um resultado aparecer, o termo de pesquisa deve estar contido no título ou na descrição do resultado. Ou seja, se somando todos os títulos e descrições o total são 12 elementos, é necessário que apenas metade desses elementos contenham o termo de pesquisa.
 
 A pesquisa de uma palavra é validada caso ambas as etapas passem sem erros.
 
@@ -28,6 +30,9 @@ Para verificar se a deleção ocorreu com sucesso, é verificado se a página at
 
 ## Persistência de dados
 O projeto também possuí persistência de dados. Caso deseje, o usuário pode salvar suas credenciais de login localmente para poupar tempo durante os testes.
+
+## Criptografia
+Os dados de login salvos são criptografados usando a biblioteca Fernet. Só é possível acessá-los em posse da chave de criptografia que é salva localmente na pasta do projeto.
 
 # Como executar o código?
 Basta executar o `main.py` e digitar as credenciais para login no GitHub.
