@@ -7,16 +7,19 @@ from selenium.webdriver.common.by import By
 
 class SearchValidator(GithubValidator):
 
-    def __init__(self, driver: webdriver):
+    def __init__(self, driver: webdriver, commonWords=None):
         super().__init__(driver)
         # Words with almost granted search results.
-        self.commonWords = ["project", 'a', "car", "light", "color", "api", "ufsc", "letter", "matheus"]
+        if commonWords is None:
+            commonWords = ["project", 'a', "car", "light", "color", "api",
+                           "ufsc", "letter", "matheus"]
+        self.commonWords = commonWords
 
     def validateSearch(self):
         testsPassed = 0
         failedWords = []
         for word in self.commonWords:
-            if self.validateSingleSearch(word):
+            if self.__validateSingleSearch(word):
                 testsPassed += 1
             else:
                 failedWords.append(word)
@@ -27,7 +30,7 @@ class SearchValidator(GithubValidator):
         else:
             print("[+] Search successful!")
 
-    def validateSingleSearch(self, searchTerm='a'):
+    def __validateSingleSearch(self, searchTerm='a'):
         self.driver.get("https://github.com/")
         searchBar = self.driver.find_element(By.NAME, 'q')
         searchBar.clear()

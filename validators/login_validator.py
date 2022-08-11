@@ -10,7 +10,7 @@ class LoginValidator(GithubValidator):
     def __init__(self, driver: webdriver, userName: str, password: str):
         super().__init__(driver)
         self.userName = userName
-        self.password = password
+        self.__userPassword = password
 
     def validateLogin(self):
         self.driver.get("https://github.com/login")
@@ -20,7 +20,7 @@ class LoginValidator(GithubValidator):
         )
 
         self.driver.find_element(By.ID, "login_field").send_keys(self.userName)
-        self.driver.find_element(By.ID, "password").send_keys(self.password)
+        self.driver.find_element(By.ID, "password").send_keys(self.__userPassword)
         self.driver.find_element(By.NAME, "commit").click()
 
         self.waitPageLoadScript()

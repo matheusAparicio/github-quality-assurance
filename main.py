@@ -16,6 +16,7 @@ repositoryDeletionValidator = RepositoryDeletionValidator(webDriver, credentials
 
 # Program main function
 if __name__ == "__main__":
+    pass
     loginValidator.validateLogin()
     searchValidator.validateSearch()
     repositoryCreationValidator.validateRepositoryCreation()
