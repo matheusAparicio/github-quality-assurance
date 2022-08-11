@@ -39,7 +39,9 @@ Basta executar o `main.py` e digitar as credenciais para login no GitHub.
 
 ## Requerimentos
 
-- É necessário ter o Python instalado. Caso não o tenha, ele pode ser obtido pelo comando `sudo apt-get install python3`.
+- Instalar o Python, caso não o tenha. Ele pode ser obtido pelo comando `sudo apt-get install python3`.
+
+- Ter instalado também o gerenciador de pacotes do Python, o Pip. Ele pode ser obtido com o comando `sudo apt-get install python3-pip`.
 
 - Instalar o package Selenium para Python. (Pode ser feito pelo comando `pip install selenium`.)
 
