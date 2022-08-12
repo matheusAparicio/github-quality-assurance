@@ -43,7 +43,9 @@ Basta executar o `main.py` e digitar as credenciais para login no GitHub.
 
 - Ter instalado também o gerenciador de pacotes do Python, o Pip. Ele pode ser obtido com o comando `sudo apt-get install python3-pip`.
 
-- Instalar o package Selenium para Python. (Pode ser feito pelo comando `pip install selenium`.)
+- Instalar a biblioteca Cryptography, para usar o Fernet. Ela pode ser instalada pelo comando `pip install cryptography`.
+
+- Instalar a biblioteca Selenium para Python. (Pode ser feito pelo comando `pip install selenium`.)
 
 - Baixar a última versão do geckodriver em https://github.com/mozilla/geckodriver/releases
 
