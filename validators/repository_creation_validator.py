@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from utilities import utilities
+from utilities.string_utilities import StringUtilities
 
 
 class RepositoryCreationValidator(GithubValidator):
@@ -34,8 +34,8 @@ class RepositoryCreationValidator(GithubValidator):
             EC.visibility_of_element_located((By.ID, "repository_name"))
         )
         # Configures the new repository.
-        self.driver.find_element(By.ID, "repository_name").send_keys(f"{utilities.randomString(6)}-"
-                                                                     f"{utilities.randomString(6)}")
+        self.driver.find_element(By.ID, "repository_name").send_keys(f"{StringUtilities.randomString(6)}-"
+                                                                     f"{StringUtilities.randomString(6)}")
         self.driver.find_element(By.ID, "repository_visibility_private").click()
 
         # Waits until the confirm button is enabled.

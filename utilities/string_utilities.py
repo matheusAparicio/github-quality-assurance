@@ -2,7 +2,7 @@ import random
 import string
 
 
-class Utilities:
+class StringUtilities:
 
     def __init__(self):
         pass
@@ -12,5 +12,3 @@ class Utilities:
         randomString = ''.join(random.choice(string.ascii_lowercase) for i in range(size))
         return randomString
 
-
-utilities = Utilities()
